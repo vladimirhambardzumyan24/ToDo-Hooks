@@ -1,4 +1,9 @@
-export default function Buttons({countIsDone,countAll,handleClickSelectAll,handleClickRemoveAll}) {
+export default function Buttons({
+  countIsDone,
+  countAll,
+  handleClickSelectAll,
+  handleClickRemoveAll,
+}) {
   return (
     <div>
       <button className="inline-block left-0 flex-no-shrink p-2 ml-2 border-2 rounded text-green-700 border-green-700">

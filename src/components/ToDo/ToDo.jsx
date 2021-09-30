@@ -70,6 +70,9 @@ export default function ToDo() {
         return item;
       })
     );
+    if (!editValue) {
+      setArray(array.filter((item) => id !== item.id));
+    }
   };
 
   const handleChangeClickCansle = (id) => {
