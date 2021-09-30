@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import Buttons from "../Buttons/Buttons";
+import ToDoItem from "../ToDoItem/ToDoItem";
 
 const idGenerator = () => {
   let id = 0;
@@ -15,14 +17,19 @@ export default function ToDo() {
   const [array, setArray] = useState([]);
   const [countIsDone, setCountIsDone] = useState(0);
   const [countAll, setCountAll] = useState(0);
+  const [editValue, setEditValue] = useState("");
 
   const handleChange = (e) => {
     setValue(e);
   };
 
-  const handleClickAdd = () => {
+  const handleClickAdd = (event) => {
+    event.preventDefault();
     if (value) {
-      setArray([...array, { id: getRandomId(), text: value, isDone: true }]);
+      setArray([
+        ...array,
+        { id: getRandomId(), text: value, isDone: true, isEdit: true },
+      ]);
     }
     setValue("");
   };
@@ -40,6 +47,44 @@ export default function ToDo() {
         return item;
       })
     );
+  };
+
+  const handleDoubleClickEdit = (id) => {
+    setArray(
+      array.map((item) => {
+        if (id === item.id) {
+          item.isEdit = false;
+        }
+        return item;
+      })
+    );
+  };
+
+  const handleChangeClickSave = (id) => {
+    setArray(
+      array.map((item) => {
+        if (id === item.id) {
+          item.text = editValue;
+          item.isEdit = true;
+        }
+        return item;
+      })
+    );
+  };
+
+  const handleChangeClickCansle = (id) => {
+    setArray(
+      array.map((item) => {
+        if (id === item.id) {
+          item.isEdit = true;
+        }
+        return item;
+      })
+    );
+  };
+
+  const handleChangeEdit = (value) => {
+    setEditValue(value);
   };
 
   const handleClickRemoveAll = () => {
@@ -74,66 +119,41 @@ export default function ToDo() {
       <div className="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-lg">
         <div className="mb-4">
           <h1 className="text-grey-darkest">Todo List</h1>
-          <div className="flex mt-4">
+          <form className="flex mt-4" onSubmit={handleClickAdd}>
             <input
               value={value}
               onChange={(e) => handleChange(e.target.value)}
               className="shadow appearance-none border rounded w-full border-green-700 py-2 px-3 mr-4 text-grey-darker"
               placeholder="Add Todo"
             ></input>
-            <button
-              onClick={handleClickAdd}
+            <input
+              type="submit"
               className="flex-no-shrink p-2 border-2 rounded text-teal border-teal border-green-700 hover:text-white hover:bg-green-700"
-            >
-              Add
-            </button>
-          </div>
+              value="Add"
+            />
+          </form>
         </div>
         <div>
           {array.map((item) => {
             return (
-              <div key={item.id} className="flex mb-4 items-center">
-                {item.isDone ? (
-                  <p className="w-full text-grey-darkest">{item.text}</p>
-                ) : (
-                  <p className="line-through w-full text-grey-darkest">
-                    {item.text}
-                  </p>
-                )}
-                <button
-                  onClick={() => handleChangeClickDone(item)}
-                  className="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green-700 border-green-700 hover:bg-green-700"
-                >
-                  Done
-                </button>
-                <button
-                  onClick={() => handleChangeClickRemove(item.id)}
-                  className="flex-no-shrink p-2 ml-2 border-2 rounded text-red-700 border-red-700 hover:text-white hover:bg-red-700"
-                >
-                  Remove
-                </button>
-              </div>
+              <ToDoItem
+                key={item.id}
+                item={item}
+                handleChangeClickDone={handleChangeClickDone}
+                handleChangeClickRemove={handleChangeClickRemove}
+                handleDoubleClickEdit={handleDoubleClickEdit}
+                handleChangeClickCansle={handleChangeClickCansle}
+                handleChangeClickSave={handleChangeClickSave}
+                handleChangeEdit={handleChangeEdit}
+              />
             );
           })}
-          <div>
-            <button className="inline-block left-0 flex-no-shrink p-2 ml-2 border-2 rounded text-green-700 border-green-700">
-              {countIsDone}/{countAll}
-            </button>
-            <div className="flex justify-end inline-block -mt-11">
-              <button
-                onClick={handleClickSelectAll}
-                className="flex-no-shrink p-2 ml-2 border-2 rounded text-green-700 border-green-700 hover:bg-green-700 hover:text-white"
-              >
-                Select All
-              </button>
-              <button
-                onClick={handleClickRemoveAll}
-                className="flex-no-shrink p-2 ml-2 border-2 rounded text-red-700 border-red-700 hover:text-white hover:bg-red-700"
-              >
-                Remove Selected
-              </button>
-            </div>
-          </div>
+          <Buttons
+            countIsDone={countIsDone}
+            countAll={countAll}
+            handleClickSelectAll={handleClickSelectAll}
+            handleClickRemoveAll={handleClickRemoveAll}
+          />
         </div>
       </div>
     </div>
