@@ -9,7 +9,7 @@ export default function AddForm({handleClickAdd,value,handleChange}) {
       ></input>
       <input
         type="submit"
-        className="flex-no-shrink p-2 border-2 rounded text-teal border-teal border-green-700 hover:text-white hover:bg-green-700"
+        className="flex-no-shrink p-2 border rounded text-teal border-teal border-green-700 hover:text-white hover:bg-green-700"
         value="Add"
       />
     </form>

@@ -16,12 +16,12 @@ export default function EditForm({
       />
       <input
         type="submit"
-        className="flex-no-shrink p-2 border-2 rounded hover:text-white text-green-700 border-green-700 hover:bg-green-700"
+        className="flex-no-shrink p-2 border rounded hover:text-white text-green-700 border-green-700 hover:bg-green-700"
         value="Save"
       />
       <button
         onClick={() => handleChangeClickCansle(item.id)}
-        className="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded text-red-700 border-red-700 hover:text-white hover:bg-red-700 "
+        className="flex-no-shrink p-2 ml-4 mr-2 border rounded text-red-700 border-red-700 hover:text-white hover:bg-red-700 "
       >
         Cansle
       </button>

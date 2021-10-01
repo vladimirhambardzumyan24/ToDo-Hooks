@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import ToDoSave, { getToDo } from "../../helper/LocalStorage";
 import AddForm from "../AddForm/AddForm";
 import Buttons from "../Buttons/Buttons";
 import ToDoItem from "../ToDoItem/ToDoItem";
@@ -15,7 +16,7 @@ const getRandomId = idGenerator();
 
 export default function ToDo() {
   const [value, setValue] = useState("");
-  const [array, setArray] = useState([]);
+  const [array, setArray] = useState(getToDo() ? getToDo() : []);
   const [countIsDone, setCountIsDone] = useState(0);
   const [countAll, setCountAll] = useState(0);
   const [editValue, setEditValue] = useState("");
@@ -29,7 +30,13 @@ export default function ToDo() {
     if (value) {
       setArray([
         ...array,
-        { id: getRandomId(), text: value, isDone: true, isEdit: true },
+        {
+          id: getRandomId(),
+          text: value,
+          date: new Date().toLocaleString(),
+          isDone: true,
+          isEdit: true,
+        },
       ]);
     }
     setValue("");
@@ -67,6 +74,7 @@ export default function ToDo() {
         if (id === item.id) {
           item.text = editValue;
           item.isEdit = true;
+          item.date = new Date().toLocaleString();
         }
         return item;
       })
@@ -116,6 +124,7 @@ export default function ToDo() {
   useEffect(() => {
     setCountIsDone(array.filter((item) => item.isDone === false).length);
     setCountAll(array.length);
+    ToDoSave(array);
   });
 
   return (
