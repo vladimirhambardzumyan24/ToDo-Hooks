@@ -1,3 +1,5 @@
+import ItemDataUi from "../ItemDataUi/ItemDataUi";
+
 export default function ({
   item,
   handleDoubleClickEdit,
@@ -7,29 +9,17 @@ export default function ({
   return (
     <div className="flex mb-4 items-center">
       {item.isDone ? (
-        <div
-          onDoubleClick={() => {
-            handleDoubleClickEdit(item.id);
-          }}
-          className="w-full text-grey-darkest pl-2"
-        >
-          {item.text}
-          <div className="text-xs">
-            {item.date}
-          </div>
-        </div>
+        <ItemDataUi
+          item={item}
+          handleDoubleClickEdit={handleDoubleClickEdit}
+          line=""
+        />
       ) : (
-        <div
-          onDoubleClick={() => {
-            handleDoubleClickEdit(item.id);
-          }}
-          className="line-through w-full text-grey-darkest pl-2"
-        >
-          {item.text}
-          <div className="text-xs ">
-            {item.date}
-          </div>
-        </div>
+        <ItemDataUi
+          item={item}
+          handleDoubleClickEdit={handleDoubleClickEdit}
+          line="line-through"
+        />
       )}
       <button
         onClick={() => handleChangeClickDone(item)}
