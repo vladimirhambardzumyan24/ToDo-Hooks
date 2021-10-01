@@ -1,9 +1,9 @@
 import ToDo from "../ToDo/ToDo";
 
-export default function General(){
-    return(
-        <>
-            <ToDo />
-        </>
-    )
+export default function General() {
+  return (
+    <>
+      <ToDo />
+    </>
+  );
 }

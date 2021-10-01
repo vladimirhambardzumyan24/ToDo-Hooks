@@ -1,10 +1,8 @@
-import './App.css';
-import General from './components/General/General';
+import "./App.css";
+import General from "./components/General/General";
 
 function App() {
-  return (
-    <General />
-  );
+  return <General />;
 }
 
 export default App;

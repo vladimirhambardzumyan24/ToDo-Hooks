@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import AddForm from "../AddForm/AddForm";
 import Buttons from "../Buttons/Buttons";
 import ToDoItem from "../ToDoItem/ToDoItem";
 
@@ -122,19 +123,11 @@ export default function ToDo() {
       <div className="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-lg">
         <div className="mb-4">
           <h1 className="text-grey-darkest">Todo List</h1>
-          <form className="flex mt-4" onSubmit={handleClickAdd}>
-            <input
-              value={value}
-              onChange={(e) => handleChange(e.target.value)}
-              className="shadow appearance-none border rounded w-full border-green-700 py-2 px-3 mr-4 text-grey-darker"
-              placeholder="Add Todo"
-            ></input>
-            <input
-              type="submit"
-              className="flex-no-shrink p-2 border-2 rounded text-teal border-teal border-green-700 hover:text-white hover:bg-green-700"
-              value="Add"
-            />
-          </form>
+          <AddForm
+            handleClickAdd={handleClickAdd}
+            value={value}
+            handleChange={handleChange}
+          />
         </div>
         <div>
           {array.map((item) => {
